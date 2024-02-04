@@ -7,9 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\" />
     <Folder Include="Validators\" />
-    <Folder Include="Queries\" />
   </ItemGroup>
 
 </Project>
