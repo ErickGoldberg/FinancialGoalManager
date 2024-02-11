@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinancialGoalManager.API.Controllers
@@ -7,6 +8,12 @@ namespace FinancialGoalManager.API.Controllers
     [ApiController]
     public class ReportsController : ControllerBase
     {
+        private readonly IMediator _mediator;
+        public ReportsController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetReports()
         {

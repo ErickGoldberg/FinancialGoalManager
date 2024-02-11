@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinancialGoalManager.API.Controllers
@@ -7,8 +7,23 @@ namespace FinancialGoalManager.API.Controllers
     [ApiController]
     public class FinancialGoalController : ControllerBase
     {
+        private readonly IMediator _mediator;
+        public FinancialGoalController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
         [HttpPost]
         public async Task<IActionResult> RegisterGoal()
+        {
+
+            // return BadRequest();
+
+            return Created("", true);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadCover()
         {
 
             // return BadRequest();
