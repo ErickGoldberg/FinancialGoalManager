@@ -1,7 +1,9 @@
-﻿namespace FinancialGoalManager.Core.Repositories
+﻿using FinancialGoalManager.Core.DTOs;
+
+namespace FinancialGoalManager.Core.Repositories
 {
     public interface IReportsRepository
     {
-        Task GetReports();
+        Task<List<ReportsDto>> GetReports();
     }
 }

@@ -1,4 +1,9 @@
-﻿using MediatR;
+﻿using FinancialGoalManager.Application.Commands.FinancialGoals.DeleteGoal;
+using FinancialGoalManager.Application.Commands.FinancialGoals.RegisterGoal;
+using FinancialGoalManager.Application.Commands.FinancialGoals.UploadCover;
+using FinancialGoalManager.Application.Queries.FinancialGoalQueries.GetGoalsDetails;
+using FinancialGoalManager.Application.Queries.FinancialGoalQueries.ListGoals;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinancialGoalManager.API.Controllers
@@ -14,21 +19,19 @@ namespace FinancialGoalManager.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterGoal()
+        public async Task<IActionResult> RegisterGoal(RegisterGoalCommand command)
         {
+            await _mediator.Send(command);
 
-            // return BadRequest();
-
-            return Created("", true);
+            return Created("Your Goal was registered successfully!", true);
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadCover()
+        public async Task<IActionResult> UploadCover(UploadCoverCommand command)
         {
+            await _mediator.Send(command);
 
-            // return BadRequest();
-
-            return Created("", true);
+            return Created("The Cover was uploaded successfully!", true);
         }
 
         [HttpPut]
@@ -41,8 +44,9 @@ namespace FinancialGoalManager.API.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteGoal()
+        public async Task<IActionResult> DeleteGoal(DeleteGoalCommand command)
         {
+            await _mediator.Send(command);
 
             // return NotFound();
 
@@ -52,18 +56,22 @@ namespace FinancialGoalManager.API.Controllers
         [HttpGet]
         public async Task<IActionResult> ListGoals()
         {
+            var query = new ListGoalsQuery();
 
+            var result = await _mediator.Send(query);
 
-            return Ok();
+            return Ok(result);
         }
 
         [HttpGet]
         [Route("Details")]
         public async Task<IActionResult> GetGoalsDetails()
         {
+            var query = new GetGoalsDetailsQuery();
 
+            var result = await _mediator.Send(query);
 
-            return Ok();
+            return Ok(result);
         }
     }
 }

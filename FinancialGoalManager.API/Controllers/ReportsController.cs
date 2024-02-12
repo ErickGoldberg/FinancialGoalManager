@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FinancialGoalManager.Application.Queries.Reports.GetReports;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,9 +18,11 @@ namespace FinancialGoalManager.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetReports()
         {
+            var query = new GetReportsQuery();
 
+            var reports = _mediator.Send(query);
 
-            return Ok();
+            return Ok(reports);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using FinancialGoalManager.Core.Repositories;
+﻿using FinancialGoalManager.Core.DTOs;
+using FinancialGoalManager.Core.Repositories;
 
 namespace FinancialGoalManager.Infrastructure.Persistence.Repositories
 {
@@ -11,9 +12,10 @@ namespace FinancialGoalManager.Infrastructure.Persistence.Repositories
             // context
         }
 
-        public Task GetReports()
+        public async Task<List<ReportsDto>> GetReports()
         {
-            throw new NotImplementedException();
+            
+            return new List<ReportsDto>();
         }
     }
 }

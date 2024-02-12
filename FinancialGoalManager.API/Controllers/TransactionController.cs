@@ -1,5 +1,8 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Http;
+﻿using FinancialGoalManager.Application.Commands.Transaction.RemoveTransaction;
+using FinancialGoalManager.Application.Commands.Transaction.SendTransaction;
+using FinancialGoalManager.Application.Queries.Transaction.ListTransactions;
+using FinancialGoalManager.Application.Queries.Transaction.GetTransactionsDetails;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinancialGoalManager.API.Controllers
@@ -15,16 +18,17 @@ namespace FinancialGoalManager.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SendTransaction()
+        public async Task<IActionResult> SendTransaction(SendTransactionCommand command)
         {
+            await _mediator.Send(command);
 
-
-            return Created("", true);
+            return Created("Your transaction was made successfully!", true);
         }
 
         [HttpDelete]
-        public async Task<IActionResult> RemoveTransaction()
+        public async Task<IActionResult> RemoveTransaction(RemoveTransactionCommand command)
         {
+            await _mediator.Send(command);
 
             return NoContent();
         }
@@ -32,7 +36,9 @@ namespace FinancialGoalManager.API.Controllers
         [HttpGet]
         public async Task<IActionResult> ListTransactions()
         {
+            var query = new ListTransactionsQuery();
 
+            await _mediator.Send(query);
 
             return Ok();
         }
@@ -41,7 +47,9 @@ namespace FinancialGoalManager.API.Controllers
         [Route("Details")]
         public async Task<IActionResult> GetTransactionsDetails()
         {
+            var query = new GetTransactionsDetailsQuery();
 
+            await _mediator.Send(query);
 
             return Ok();
         }

@@ -10,7 +10,7 @@ namespace FinancialGoalManager.Infrastructure.Persistence
             
         }
 
-        public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Transactions> Transactions { get; set; }
         public DbSet<FinancialGoal> FinancialGoals { get; set; }
     }
 }

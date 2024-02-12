@@ -17,4 +17,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FinancialGoalManager.Application\FinancialGoalManager.Application.csproj" />
+  </ItemGroup>
+
 </Project>
