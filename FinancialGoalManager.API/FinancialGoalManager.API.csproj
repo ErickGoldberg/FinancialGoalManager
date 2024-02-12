@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FinancialGoalManager.Application\FinancialGoalManager.Application.csproj" />
+    <ProjectReference Include="..\FinancialGoalManager.Infrastructure\FinancialGoalManager.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

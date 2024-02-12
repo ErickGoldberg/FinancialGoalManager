@@ -38,9 +38,9 @@ namespace FinancialGoalManager.API.Controllers
         {
             var query = new ListTransactionsQuery();
 
-            await _mediator.Send(query);
+            var result = await _mediator.Send(query);
 
-            return Ok();
+            return Ok(result);
         }
 
         [HttpGet]
@@ -49,9 +49,9 @@ namespace FinancialGoalManager.API.Controllers
         {
             var query = new GetTransactionsDetailsQuery();
 
-            await _mediator.Send(query);
+            var result = await _mediator.Send(query);
 
-            return Ok();
+            return Ok(result);
         }
     }
 }

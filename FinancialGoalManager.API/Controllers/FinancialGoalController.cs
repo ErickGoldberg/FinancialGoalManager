@@ -1,5 +1,6 @@
 ﻿using FinancialGoalManager.Application.Commands.FinancialGoals.DeleteGoal;
 using FinancialGoalManager.Application.Commands.FinancialGoals.RegisterGoal;
+using FinancialGoalManager.Application.Commands.FinancialGoals.UpdateGoal;
 using FinancialGoalManager.Application.Commands.FinancialGoals.UploadCover;
 using FinancialGoalManager.Application.Queries.FinancialGoalQueries.GetGoalsDetails;
 using FinancialGoalManager.Application.Queries.FinancialGoalQueries.ListGoals;
@@ -27,6 +28,7 @@ namespace FinancialGoalManager.API.Controllers
         }
 
         [HttpPost]
+        [Route("UploadCover")]
         public async Task<IActionResult> UploadCover(UploadCoverCommand command)
         {
             await _mediator.Send(command);
@@ -35,10 +37,9 @@ namespace FinancialGoalManager.API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateGoal()
+        public async Task<IActionResult> UpdateGoal(UpdateGoalCommand command)
         {
-
-            // return NotFound();
+            await _mediator.Send(command);
 
             return NoContent();
         }
