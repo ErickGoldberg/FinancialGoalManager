@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialGoalManager.API", "FinancialGoalManager.API\FinancialGoalManager.API.csproj", "{71B18AFF-9F34-423E-AC93-F984C1D503E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinancialGoalManager.API", "FinancialGoalManager.API\FinancialGoalManager.API.csproj", "{71B18AFF-9F34-423E-AC93-F984C1D503E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialGoalManager.Infrastructure", "FinancialGoalManager.Infrastructure\FinancialGoalManager.Infrastructure.csproj", "{F84AB0BB-9494-46E5-BF7B-46D4EA01A472}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinancialGoalManager.Infrastructure", "FinancialGoalManager.Infrastructure\FinancialGoalManager.Infrastructure.csproj", "{F84AB0BB-9494-46E5-BF7B-46D4EA01A472}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialGoalManager.Application", "FinancialGoalManager.Application\FinancialGoalManager.Application.csproj", "{8B67A393-6F22-4044-A69F-EA80FC9BF134}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinancialGoalManager.Application", "FinancialGoalManager.Application\FinancialGoalManager.Application.csproj", "{8B67A393-6F22-4044-A69F-EA80FC9BF134}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialGoalManager.Core", "FinancialGoalManager.Core\FinancialGoalManager.Core.csproj", "{22B68FB3-A55A-439D-AF7A-76E19BA54F85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinancialGoalManager.Core", "FinancialGoalManager.Core\FinancialGoalManager.Core.csproj", "{22B68FB3-A55A-439D-AF7A-76E19BA54F85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialGoalManager.Tests", "FinancialGoalManager.Tests\FinancialGoalManager.Tests.csproj", "{DC9E3572-99C2-44B9-B6DD-6BAC02EFBD8E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{22B68FB3-A55A-439D-AF7A-76E19BA54F85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22B68FB3-A55A-439D-AF7A-76E19BA54F85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22B68FB3-A55A-439D-AF7A-76E19BA54F85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC9E3572-99C2-44B9-B6DD-6BAC02EFBD8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC9E3572-99C2-44B9-B6DD-6BAC02EFBD8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC9E3572-99C2-44B9-B6DD-6BAC02EFBD8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC9E3572-99C2-44B9-B6DD-6BAC02EFBD8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

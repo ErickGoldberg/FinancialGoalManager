@@ -28,6 +28,15 @@ namespace FinancialGoalManager.API.Controllers
         }
 
         [HttpPost]
+        [Route("SimulateEvolution")]
+        public async Task<IActionResult> SimulateFinancialEvolution(RegisterGoalCommand command)
+        {
+            await _mediator.Send(command);
+
+            return Created("Your Goal was registered successfully!", true);
+        }
+
+        [HttpPost]
         [Route("UploadCover")]
         public async Task<IActionResult> UploadCover(UploadCoverCommand command)
         {
@@ -48,8 +57,6 @@ namespace FinancialGoalManager.API.Controllers
         public async Task<IActionResult> DeleteGoal(DeleteGoalCommand command)
         {
             await _mediator.Send(command);
-
-            // return NotFound();
 
             return NoContent();
         }

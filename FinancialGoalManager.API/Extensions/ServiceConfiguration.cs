@@ -1,6 +1,11 @@
-﻿using FinancialGoalManager.Application.Commands.FinancialGoals.RegisterGoal;
+﻿using FinancialGoalManager.API.Filters;
+using FinancialGoalManager.Application.Commands.FinancialGoals.RegisterGoal;
+using FinancialGoalManager.Application.Validators.FinancialGoal;
 using FinancialGoalManager.Core.Repositories;
+using FinancialGoalManager.Infrastructure.Persistence;
 using FinancialGoalManager.Infrastructure.Persistence.Repositories;
+using FluentValidation.AspNetCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 namespace FinancialGoalManager.API.Extensions
@@ -45,10 +50,19 @@ namespace FinancialGoalManager.API.Extensions
 
         public static WebApplicationBuilder ConfigureOthersServices(this WebApplicationBuilder builder)
         {
+            // Add MediatR
             builder.Services.AddMediatR(config =>
             {
                 config.RegisterServicesFromAssembly(typeof(RegisterGoalCommand).Assembly);
             });
+
+            // Validations (Fluent Validators)
+            builder.Services.AddControllers(options => options.Filters.Add(typeof(ValidationFilter)))
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RegisterGoalValidator>());
+
+            // Connect Connection String
+            builder.Services.AddDbContext<FinancialGoalManagerDbContext>(options
+                => options.UseSqlServer(builder.Configuration.GetConnectionString("FinancialGoalManagerDb")));
 
             return builder;
         }
