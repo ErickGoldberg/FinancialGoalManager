@@ -28,7 +28,10 @@ namespace FinancialGoalManager.API.Controllers
         [HttpDelete]
         public async Task<IActionResult> RemoveTransaction(RemoveTransactionCommand command)
         {
-            await _mediator.Send(command);
+            var result = await _mediator.Send(command);
+
+            if (!result)
+                BadRequest("Id do not exist!");
 
             return NoContent();
         }

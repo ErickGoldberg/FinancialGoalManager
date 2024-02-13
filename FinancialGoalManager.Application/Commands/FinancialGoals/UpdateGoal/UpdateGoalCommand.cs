@@ -4,7 +4,7 @@ using MediatR;
 
 namespace FinancialGoalManager.Application.Commands.FinancialGoals.UpdateGoal
 {
-    public class UpdateGoalCommand : BaseEntity, IRequest
+    public class UpdateGoalCommand : BaseEntity, IRequest<bool>
     {
         public string? Title { get; set; }
         public decimal? GoalAmount { get; set; }
