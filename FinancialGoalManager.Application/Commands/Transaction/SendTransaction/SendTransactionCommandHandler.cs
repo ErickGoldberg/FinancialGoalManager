@@ -1,25 +1,26 @@
 ﻿using FinancialGoalManager.Core.Entities;
-using FinancialGoalManager.Core.Repositories;
+using FinancialGoalManager.Infrastructure.Persistence;
 using MediatR;
 
 namespace FinancialGoalManager.Application.Commands.Transaction.SendTransaction
 {
     public class SendTransactionCommandHandler : IRequestHandler<SendTransactionCommand>
     {
-        private readonly ITransactionRepository _transactionRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public SendTransactionCommandHandler(ITransactionRepository transactionRepository)
+        public SendTransactionCommandHandler(IUnitOfWork unitOfWork)
         {
-            _transactionRepository = transactionRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task Handle(SendTransactionCommand command, CancellationToken cancellationToken)
         {
-            var transaction = new Core.Entities.Transactions(command.Amount,
+            var transaction = new Transactions(command.Amount,
                                               command.TransactionType,
                                               command.TransactionDate);
 
-            await _transactionRepository.SendTransaction(transaction);
+            await _unitOfWork.TransactionRepository.SendTransaction(transaction);
+            await _unitOfWork.CompleteAsync();
         }
     }
 }

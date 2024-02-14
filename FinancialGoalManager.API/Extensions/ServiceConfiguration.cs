@@ -42,9 +42,13 @@ namespace FinancialGoalManager.API.Extensions
 
         public static WebApplicationBuilder ConfigureDependencyInjection(this WebApplicationBuilder builder)
         {
+            // Adding repositories
             builder.Services.AddScoped<IFinancialGoalRepository, FinancialGoalRepository>();
             builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
             builder.Services.AddScoped<IReportsRepository, ReportsRepository>();
+
+            // Adding UnitOfWork
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Adding Middleware
             builder.Services.AddTransient<GlobalExceptionHandler>();

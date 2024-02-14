@@ -1,25 +1,26 @@
-﻿using FinancialGoalManager.Core.Entities;
-using FinancialGoalManager.Core.Repositories;
+﻿using FinancialGoalManager.Infrastructure.Persistence;
 using MediatR;
 
 namespace FinancialGoalManager.Application.Commands.FinancialGoals.DeleteGoal
 {
     public class DeleteGoalCommandHandler : IRequestHandler<DeleteGoalCommand, bool>
     {
-        private readonly IFinancialGoalRepository _goalRepository;
-        public DeleteGoalCommandHandler(IFinancialGoalRepository goalRepository)
+        private readonly IUnitOfWork _unitOfWork;
+
+        public DeleteGoalCommandHandler(IUnitOfWork unitOfWork)
         {
-            _goalRepository = goalRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<bool> Handle(DeleteGoalCommand request, CancellationToken cancellationToken)
         {
-            var financialGoalDto = await _goalRepository.GetGoalsById(request.Id);
+            var financialGoalDto = await _unitOfWork.FinancialGoalRepository.GetGoalsById(request.Id);
 
             if (financialGoalDto == null)
                 return false;
 
-            await _goalRepository.DeleteGoal(financialGoalDto);
+            await _unitOfWork.FinancialGoalRepository.DeleteGoal(financialGoalDto);
+            await _unitOfWork.CompleteAsync();
 
             return true;
         }

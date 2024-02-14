@@ -1,20 +1,22 @@
 ﻿using FinancialGoalManager.Core.Entities;
 using FinancialGoalManager.Core.Repositories;
+using FinancialGoalManager.Infrastructure.Persistence;
 using MediatR;
 
 namespace FinancialGoalManager.Application.Commands.FinancialGoals.UpdateGoal
 {
     public class UpdateGoalCommandHandler : IRequestHandler<UpdateGoalCommand, bool>
     {
-        private readonly IFinancialGoalRepository _goalRepository;
-        public UpdateGoalCommandHandler(IFinancialGoalRepository goalRepository)
+        private readonly IUnitOfWork _unitOfWork;
+
+        public UpdateGoalCommandHandler(IUnitOfWork unitOfWork)
         {
-            _goalRepository = goalRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<bool> Handle(UpdateGoalCommand request, CancellationToken cancellationToken)
         {
-            var financialGoal = await _goalRepository.GetGoalsById(request.Id);
+            var financialGoal = await _unitOfWork.FinancialGoalRepository.GetGoalsById(request.Id);
 
             if (financialGoal == null)
                 return false;
@@ -31,7 +33,8 @@ namespace FinancialGoalManager.Application.Commands.FinancialGoals.UpdateGoal
             if (request.Cover != null)
                 financialGoal.Cover = request.Cover;
 
-            await _goalRepository.UpdateGoal(financialGoal);
+            await _unitOfWork.FinancialGoalRepository.UpdateGoal(financialGoal);
+            await _unitOfWork.CompleteAsync();
 
             return true;
         }

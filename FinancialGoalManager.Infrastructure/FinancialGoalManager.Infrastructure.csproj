@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FinancialGoalManager.Application\FinancialGoalManager.Application.csproj" />
     <ProjectReference Include="..\FinancialGoalManager.Core\FinancialGoalManager.Core.csproj" />
   </ItemGroup>
 
