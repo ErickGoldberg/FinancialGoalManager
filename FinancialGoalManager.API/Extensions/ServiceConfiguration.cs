@@ -1,4 +1,5 @@
 ﻿using FinancialGoalManager.API.Filters;
+using FinancialGoalManager.API.Middleware;
 using FinancialGoalManager.Application.Commands.FinancialGoals.RegisterGoal;
 using FinancialGoalManager.Application.Validators.FinancialGoal;
 using FinancialGoalManager.Core.Repositories;
@@ -44,6 +45,9 @@ namespace FinancialGoalManager.API.Extensions
             builder.Services.AddScoped<IFinancialGoalRepository, FinancialGoalRepository>();
             builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
             builder.Services.AddScoped<IReportsRepository, ReportsRepository>();
+
+            // Adding Middleware
+            builder.Services.AddTransient<GlobalExceptionHandler>();
 
             return builder;
         }

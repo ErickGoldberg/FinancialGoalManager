@@ -14,6 +14,11 @@ namespace FinancialGoalManager.API.Controllers
             _mediator = mediator;
         }
 
+        /// <summary>
+        /// Generate a Report About the Amount Evolution.
+        /// </summary>
+        /// <returns>Report</returns>
+        /// <response code="200">Returns a Reports About the Amount Evolution</response>
         [HttpGet]
         public async Task<IActionResult> GetReports()
         {
