@@ -17,8 +17,12 @@ namespace FinancialGoalManager.Application.Commands.FinancialGoals.RegisterGoal
         {
             var command = new FinancialGoal(request.Title, request.GoalAmount, request.Status, request.Deadline);
 
+            await _unitOfWork.BeginTransactionAsync();
+
             await _unitOfWork.FinancialGoalRepository.RegisterGoal(command);
             await _unitOfWork.CompleteAsync();
+
+            await _unitOfWork.CommitAsync();
         }
     }
 }

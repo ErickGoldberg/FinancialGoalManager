@@ -1,9 +1,11 @@
 ﻿using FinancialGoalManager.Core.Repositories;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace FinancialGoalManager.Infrastructure.Persistence
 {
     public class UnitOfWork : IUnitOfWork
     {
+        private IDbContextTransaction _transaction;
         private readonly FinancialGoalManagerDbContext _context;
         public UnitOfWork(FinancialGoalManagerDbContext context,
                           IFinancialGoalRepository financialGoalRepository,
@@ -21,6 +23,22 @@ namespace FinancialGoalManager.Infrastructure.Persistence
         public IReportsRepository ReportsRepository { get; }
 
         public ITransactionRepository TransactionRepository { get; }
+
+        public async Task BeginTransactionAsync()
+            => _transaction = await _context.Database.BeginTransactionAsync();
+        
+        public async Task CommitAsync()
+        {
+            try
+            {
+                await _transaction.CommitAsync();
+            }
+            catch (Exception)
+            {
+                await _transaction.RollbackAsync();
+                throw;
+            }
+        }
 
         public async Task<int> CompleteAsync()
         {

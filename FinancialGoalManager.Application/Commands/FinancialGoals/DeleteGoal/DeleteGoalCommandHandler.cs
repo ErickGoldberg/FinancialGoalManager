@@ -14,6 +14,8 @@ namespace FinancialGoalManager.Application.Commands.FinancialGoals.DeleteGoal
 
         public async Task<bool> Handle(DeleteGoalCommand request, CancellationToken cancellationToken)
         {
+            await _unitOfWork.BeginTransactionAsync();
+
             var financialGoalDto = await _unitOfWork.FinancialGoalRepository.GetGoalsById(request.Id);
 
             if (financialGoalDto == null)
@@ -21,6 +23,8 @@ namespace FinancialGoalManager.Application.Commands.FinancialGoals.DeleteGoal
 
             await _unitOfWork.FinancialGoalRepository.DeleteGoal(financialGoalDto);
             await _unitOfWork.CompleteAsync();
+
+            await _unitOfWork.CommitAsync();
 
             return true;
         }

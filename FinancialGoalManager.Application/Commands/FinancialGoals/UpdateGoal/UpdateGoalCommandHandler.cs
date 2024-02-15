@@ -16,6 +16,8 @@ namespace FinancialGoalManager.Application.Commands.FinancialGoals.UpdateGoal
 
         public async Task<bool> Handle(UpdateGoalCommand request, CancellationToken cancellationToken)
         {
+            await _unitOfWork.BeginTransactionAsync();
+
             var financialGoal = await _unitOfWork.FinancialGoalRepository.GetGoalsById(request.Id);
 
             if (financialGoal == null)
@@ -35,6 +37,8 @@ namespace FinancialGoalManager.Application.Commands.FinancialGoals.UpdateGoal
 
             await _unitOfWork.FinancialGoalRepository.UpdateGoal(financialGoal);
             await _unitOfWork.CompleteAsync();
+
+            await _unitOfWork.CommitAsync();
 
             return true;
         }

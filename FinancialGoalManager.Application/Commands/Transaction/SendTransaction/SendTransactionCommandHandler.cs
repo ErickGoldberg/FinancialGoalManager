@@ -19,8 +19,10 @@ namespace FinancialGoalManager.Application.Commands.Transaction.SendTransaction
                                               command.TransactionType,
                                               command.TransactionDate);
 
+            await _unitOfWork.BeginTransactionAsync();
             await _unitOfWork.TransactionRepository.SendTransaction(transaction);
             await _unitOfWork.CompleteAsync();
+            await _unitOfWork.CommitAsync();
         }
     }
 }

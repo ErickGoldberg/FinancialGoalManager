@@ -14,6 +14,8 @@ namespace FinancialGoalManager.Application.Commands.FinancialGoals.UploadCover
 
         public async Task<bool> Handle(UploadCoverCommand request, CancellationToken cancellationToken)
         {
+            await _unitOfWork.BeginTransactionAsync();
+
             var goal = await _unitOfWork.FinancialGoalRepository.GetGoalsById(request.Id);
 
             if (goal == null)
@@ -23,6 +25,8 @@ namespace FinancialGoalManager.Application.Commands.FinancialGoals.UploadCover
 
             await _unitOfWork.FinancialGoalRepository.UpdateGoal(goal);
             await _unitOfWork.CompleteAsync();
+
+            await _unitOfWork.CommitAsync();
 
             return true;
         }
