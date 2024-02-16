@@ -21,7 +21,7 @@ namespace FinancialGoalManager.Application.Commands.Transaction.RemoveTransactio
             if (transactionDto == null)
                 return false;
 
-            var transaction = new Transactions(transactionDto.Amount,
+            var transaction = new Core.Entities.Transaction(transactionDto.Amount,
                                               transactionDto.TransactionType,
                                               transactionDto.TransactionDate);
 

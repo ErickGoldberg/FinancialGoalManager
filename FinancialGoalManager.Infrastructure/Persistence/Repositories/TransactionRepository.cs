@@ -23,17 +23,17 @@ namespace FinancialGoalManager.Infrastructure.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<List<Transactions>> GetTransactionsDetails()
+        public Task<List<Transaction>> GetTransactionsDetails()
         {
             throw new NotImplementedException();
         }
 
-        public Task RemoveTransaction(Transactions transaction)
+        public Task RemoveTransaction(Transaction transaction)
         {
             throw new NotImplementedException();
         }
 
-        public Task SendTransaction(Transactions transaction)
+        public Task SendTransaction(Transaction transaction)
         {
             throw new NotImplementedException();
         }

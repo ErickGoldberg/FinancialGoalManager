@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FinancialGoalManager.Core.Entities
 {
-    public class Transactions : BaseEntity
+    public class Transaction : BaseEntity
     {
-        private Transactions() { }
-        public Transactions(decimal amount, TransactionTypeEnum transactionType, DateTime transactionDate)
+        private Transaction() { }
+        public Transaction(decimal amount, TransactionTypeEnum transactionType, DateTime transactionDate)
         {
             Amount = amount;
             TransactionType = transactionType;
@@ -22,5 +22,8 @@ namespace FinancialGoalManager.Core.Entities
         public DateTime CreatedAt { get; private set; }
         public DateTime TransactionDate { get; set; }
         public bool IsDeleted { get; set; }
+
+        public FinancialGoal FinancialGoal { get; set; }
+        public int IdFinancialGoal { get; set; }
     }
 }

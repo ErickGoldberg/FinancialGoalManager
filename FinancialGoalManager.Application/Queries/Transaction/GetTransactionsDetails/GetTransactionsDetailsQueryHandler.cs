@@ -1,11 +1,10 @@
-﻿using FinancialGoalManager.Core.Entities;
-using FinancialGoalManager.Core.Repositories;
+﻿using FinancialGoalManager.Core.Repositories;
 using MediatR;
 
 
 namespace FinancialGoalManager.Application.Queries.Transaction.GetTransactionsDetails
 {
-    public class GetTransactionsDetailsQueryHandler : IRequestHandler<GetTransactionsDetailsQuery, List<Transactions>>
+    public class GetTransactionsDetailsQueryHandler : IRequestHandler<GetTransactionsDetailsQuery, List<Core.Entities.Transaction>>
     {
         private readonly ITransactionRepository _transactionRepository;
 
@@ -14,7 +13,7 @@ namespace FinancialGoalManager.Application.Queries.Transaction.GetTransactionsDe
             _transactionRepository = transactionRepository;
         }
 
-        public async Task<List<Transactions>> Handle(GetTransactionsDetailsQuery request, CancellationToken cancellationToken)
+        public async Task<List<Core.Entities.Transaction>> Handle(GetTransactionsDetailsQuery request, CancellationToken cancellationToken)
             => await _transactionRepository.GetTransactionsDetails();
     }
 }

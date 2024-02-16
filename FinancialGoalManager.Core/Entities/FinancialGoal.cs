@@ -29,7 +29,7 @@ namespace FinancialGoalManager.Core.Entities
         public DateTime? Deadline { get; set; }
         public decimal? IdealMonthlySaving { get; set; }
         public FinancialGoalStatusEnum Status { get; set; }
-        public List<Transactions> Transactions { get; set; }
+        public List<Transaction> Transactions { get; set; }
         public byte[]? Cover { get; set; }
         public DateTime CreatedAt { get; set; }
         public bool IsDeleted { get; set; }
