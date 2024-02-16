@@ -1,45 +1,42 @@
 ﻿using FinancialGoalManager.Core.DTOs;
 using FinancialGoalManager.Core.Entities;
 using FinancialGoalManager.Core.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinancialGoalManager.Infrastructure.Persistence.Repositories
 {
     public class FinancialGoalRepository : IFinancialGoalRepository
     {
-        // Add D.I do database
-        public FinancialGoalRepository()
+        private readonly FinancialGoalManagerDbContext _context;
+
+        public FinancialGoalRepository(FinancialGoalManagerDbContext context)
+            => _context = context;
+
+        public async Task<List<FinancialGoalDto>> ListGoals()
         {
-            // context
+            var financialGoals = await _context.FinancialGoals.Select(goal => new FinancialGoalDto
+            {
+                Title = goal.Title,
+                GoalAmount = goal.GoalAmount,
+                Status = goal.Status
+            }).ToListAsync() ?? new List<FinancialGoalDto>();
+
+            return financialGoals;
         }
 
-        public Task DeleteGoal(FinancialGoal financialGoal)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<FinancialGoal> GetGoalsById(int id)
+           => await _context.FinancialGoals.SingleOrDefaultAsync(i => i.Id == id);
 
-        public Task<FinancialGoal> GetGoalsById(int id)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task DeleteGoal(FinancialGoal financialGoal)
+            => _context.FinancialGoals.Remove(financialGoal);
 
-        public Task<List<FinancialGoal>> GetGoalsDetails()
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<List<FinancialGoal>> GetGoalsDetails()
+            => await _context.FinancialGoals.ToListAsync();
 
-        public Task<List<FinancialGoalDto>> ListGoals()
-        {
-            throw new NotImplementedException();
-        }
+        public async Task RegisterGoal(FinancialGoal financialGoal)
+            => await _context.FinancialGoals.AddAsync(financialGoal);
 
-        public Task RegisterGoal(FinancialGoal financialGoal)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateGoal(FinancialGoal financialGoal)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task UpdateGoal(FinancialGoal financialGoal)
+            => _context.FinancialGoals.Update(financialGoal);
     }
 }

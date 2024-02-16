@@ -1,5 +1,6 @@
 ﻿using FinancialGoalManager.Core.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace FinancialGoalManager.Infrastructure.Persistence
 {
@@ -15,18 +16,7 @@ namespace FinancialGoalManager.Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<FinancialGoal>()
-                .HasKey(i => i.Id);
-
-            modelBuilder.Entity<Transaction>()
-                .HasKey(i => i.Id);
-
-
-            modelBuilder.Entity<FinancialGoal>()
-                .HasMany(u => u.Transactions)
-                .WithOne(l => l.FinancialGoal)
-                .HasForeignKey(l => l.IdFinancialGoal)
-                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }

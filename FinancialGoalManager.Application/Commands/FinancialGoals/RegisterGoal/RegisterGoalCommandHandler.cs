@@ -9,17 +9,15 @@ namespace FinancialGoalManager.Application.Commands.FinancialGoals.RegisterGoal
         private readonly IUnitOfWork _unitOfWork;
 
         public RegisterGoalCommandHandler(IUnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
+            => _unitOfWork = unitOfWork;
 
         public async Task Handle(RegisterGoalCommand request, CancellationToken cancellationToken)
         {
-            var command = new FinancialGoal(request.Title, request.GoalAmount, request.Status, request.Deadline);
+            var financialGoal = new FinancialGoal(request.Title, request.GoalAmount, request.Status, request.Deadline);
 
             await _unitOfWork.BeginTransactionAsync();
 
-            await _unitOfWork.FinancialGoalRepository.RegisterGoal(command);
+            await _unitOfWork.FinancialGoalRepository.RegisterGoal(financialGoal);
             await _unitOfWork.CompleteAsync();
 
             await _unitOfWork.CommitAsync();

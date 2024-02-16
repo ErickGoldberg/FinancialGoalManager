@@ -15,11 +15,8 @@ namespace FinancialGoalManager.API.Controllers
     public class FinancialGoalController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public FinancialGoalController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
-
+        public FinancialGoalController(IMediator mediator) => _mediator = mediator;
+        
         [HttpPost]
         public async Task<IActionResult> RegisterGoal(RegisterGoalCommand command)
         {
@@ -34,7 +31,7 @@ namespace FinancialGoalManager.API.Controllers
             var result = await _mediator.Send(command);
 
             if (!result)
-                BadRequest("Id do not exist!");
+                BadRequest("An error has occured!");
 
             return NoContent();
         }
@@ -45,7 +42,7 @@ namespace FinancialGoalManager.API.Controllers
             var result = await _mediator.Send(command);
 
             if (!result)
-                BadRequest("Id do not exist!");
+                BadRequest("An error has occured!");
 
             return NoContent();
         }
