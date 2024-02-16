@@ -12,20 +12,6 @@ namespace FinancialGoalManager.Infrastructure.Persistence.Repositories
         public TransactionRepository(FinancialGoalManagerDbContext context)
             => _context = context;
 
-        public async Task<TransactionDto> GetTransactionById(int id)
-        {
-            var query = await _context.Transactions.SingleOrDefaultAsync(i => i.Id == id);
-
-            var transaction = query != null ? new TransactionDto()
-            {
-                Amount = query.Amount,
-                TransactionType = query.TransactionType,
-                TransactionDate = query.TransactionDate
-            } : null; 
-
-            return transaction;
-        }
-
         public async Task<List<TransactionDto>> GetTransactions()
         {
             var transactions = await _context.Transactions.Select(transaction => new TransactionDto
@@ -37,6 +23,9 @@ namespace FinancialGoalManager.Infrastructure.Persistence.Repositories
 
             return transactions;
         }
+
+        public async Task<Transaction> GetTransactionById(int id)
+            => await _context.Transactions.SingleOrDefaultAsync(i => i.Id == id);
 
         public async Task<List<Transaction>> GetTransactionsDetails()
             => await _context.Transactions.ToListAsync();

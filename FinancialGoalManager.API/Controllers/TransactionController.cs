@@ -12,11 +12,8 @@ namespace FinancialGoalManager.API.Controllers
     public class TransactionController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public TransactionController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
-
+        public TransactionController(IMediator mediator) => _mediator = mediator;
+        
         [HttpPost]
         public async Task<IActionResult> SendTransaction(SendTransactionCommand command)
         {
@@ -31,7 +28,7 @@ namespace FinancialGoalManager.API.Controllers
             var result = await _mediator.Send(command);
 
             if (!result)
-                BadRequest("Id do not exist!");
+                BadRequest("An error has occured!");
 
             return NoContent();
         }

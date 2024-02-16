@@ -19,9 +19,7 @@ namespace FinancialGoalManager.Infrastructure.Persistence
         }
 
         public IFinancialGoalRepository FinancialGoalRepository { get; }
-
         public IReportsRepository ReportsRepository { get; }
-
         public ITransactionRepository TransactionRepository { get; }
 
         public async Task BeginTransactionAsync()

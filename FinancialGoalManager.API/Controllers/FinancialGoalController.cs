@@ -84,7 +84,7 @@ namespace FinancialGoalManager.API.Controllers
             var result = await _mediator.Send(command);
 
             if (!result)
-                BadRequest("Id do not exist!");
+                BadRequest("An error has occured!");
 
             return Created("The Cover was uploaded successfully!", true);
         }

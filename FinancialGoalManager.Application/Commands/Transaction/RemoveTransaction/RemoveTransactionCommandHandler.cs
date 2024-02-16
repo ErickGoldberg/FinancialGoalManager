@@ -9,21 +9,15 @@ namespace FinancialGoalManager.Application.Commands.Transaction.RemoveTransactio
         private readonly IUnitOfWork _unitOfWork;
 
         public RemoveTransactionCommandHandler(IUnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
-
+            => _unitOfWork = unitOfWork;
+        
         public async Task<bool> Handle(RemoveTransactionCommand command, CancellationToken cancellationToken)
         {
             await _unitOfWork.BeginTransactionAsync();
-            var transactionDto = await _unitOfWork.TransactionRepository.GetTransactionById(command.Id);
+            var transaction = await _unitOfWork.TransactionRepository.GetTransactionById(command.Id);
 
-            if (transactionDto == null)
+            if (transaction == null)
                 return false;
-
-            var transaction = new Core.Entities.Transaction(transactionDto.Amount,
-                                              transactionDto.TransactionType,
-                                              transactionDto.TransactionDate);
 
             await _unitOfWork.TransactionRepository.RemoveTransaction(transaction);
             await _unitOfWork.CompleteAsync();

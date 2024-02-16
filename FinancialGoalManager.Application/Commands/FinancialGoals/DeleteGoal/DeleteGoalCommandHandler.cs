@@ -8,10 +8,8 @@ namespace FinancialGoalManager.Application.Commands.FinancialGoals.DeleteGoal
         private readonly IUnitOfWork _unitOfWork;
 
         public DeleteGoalCommandHandler(IUnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
-
+            => _unitOfWork = unitOfWork;
+        
         public async Task<bool> Handle(DeleteGoalCommand request, CancellationToken cancellationToken)
         {
             await _unitOfWork.BeginTransactionAsync();

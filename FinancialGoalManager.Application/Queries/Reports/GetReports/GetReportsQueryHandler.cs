@@ -8,10 +8,8 @@ namespace FinancialGoalManager.Application.Queries.Reports.GetReports
     {
         private readonly IReportsRepository _reportsRepository;
         public GetReportsQueryHandler(IReportsRepository reportsRepository)
-        {
-            _reportsRepository = reportsRepository;
-        }
-
+            => _reportsRepository = reportsRepository;
+        
         public async Task<List<ReportsDto>> Handle(GetReportsQuery request, CancellationToken cancellationToken)
         {
             var reports = _reportsRepository.GetReports();

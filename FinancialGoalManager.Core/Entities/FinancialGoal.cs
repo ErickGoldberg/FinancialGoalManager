@@ -25,13 +25,13 @@ namespace FinancialGoalManager.Core.Entities
         }
 
         public string Title { get; set; }
-        public decimal GoalAmount { get; set; }
+        public decimal GoalAmount { get; private set; }
         public DateTime? Deadline { get; set; }
         public decimal? IdealMonthlySaving { get; set; }
         public FinancialGoalStatusEnum Status { get; set; }
         public List<Transaction> Transactions { get; set; }
         public byte[]? Cover { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; private set; }
         public bool IsDeleted { get; set; }
     }
 }

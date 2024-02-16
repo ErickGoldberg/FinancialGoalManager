@@ -1,5 +1,4 @@
-﻿using FinancialGoalManager.Core.Entities;
-using MediatR;
+﻿using MediatR;
 
 namespace FinancialGoalManager.Application.Queries.Transaction.GetTransactionsDetails
 {

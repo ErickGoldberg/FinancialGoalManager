@@ -9,11 +9,8 @@ namespace FinancialGoalManager.API.Controllers
     public class ReportsController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public ReportsController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
-
+        public ReportsController(IMediator mediator) => _mediator = mediator;
+        
         /// <summary>
         /// Generate a Report About the Amount Evolution.
         /// </summary>

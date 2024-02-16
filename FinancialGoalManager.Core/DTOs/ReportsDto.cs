@@ -4,8 +4,8 @@ namespace FinancialGoalManager.Core.DTOs
 {
     public class ReportsDto
     {
-        public string Title { get; private set; }
-        public decimal GoalAmount { get; private set; }
+        public string Title { get; set; }
+        public decimal GoalAmount { get; set; }
         public DateTime CreatedAt { get; set; }
         public List<Transaction> Transactions { get; set; }
     }

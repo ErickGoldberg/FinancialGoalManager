@@ -20,7 +20,7 @@ namespace FinancialGoalManager.Core.Entities
         public decimal Amount { get; private set; }
         public TransactionTypeEnum TransactionType { get; private set; }
         public DateTime CreatedAt { get; private set; }
-        public DateTime TransactionDate { get; set; }
+        public DateTime TransactionDate { get; private set; }
         public bool IsDeleted { get; set; }
 
         public FinancialGoal FinancialGoal { get; set; }

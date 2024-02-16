@@ -9,10 +9,8 @@ namespace FinancialGoalManager.Application.Queries.Transaction.ListTransactions
         private readonly ITransactionRepository _transactionRepository;
 
         public ListTransactionsQueryHandler(ITransactionRepository transactionRepository)
-        {
-            _transactionRepository = transactionRepository;
-        }
-
+            => _transactionRepository = transactionRepository;
+        
         public async Task<List<TransactionDto>> Handle(ListTransactionsQuery request, CancellationToken cancellationToken)
             => await _transactionRepository.GetTransactions();
     }

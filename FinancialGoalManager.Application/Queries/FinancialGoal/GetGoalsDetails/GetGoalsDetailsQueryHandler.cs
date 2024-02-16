@@ -8,10 +8,8 @@ namespace FinancialGoalManager.Application.Queries.FinancialGoalQueries.GetGoals
     {
         private readonly IFinancialGoalRepository _goalRepository;
         public GetGoalsDetailsQueryHandler(IFinancialGoalRepository goalRepository)
-        {
-            _goalRepository = goalRepository;
-        }
-
+            => _goalRepository = goalRepository;
+        
         public async Task<List<FinancialGoal>> Handle(GetGoalsDetailsQuery request, CancellationToken cancellationToken)
             => await _goalRepository.GetGoalsDetails();
     }
