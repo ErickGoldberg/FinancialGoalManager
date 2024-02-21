@@ -9,6 +9,6 @@ namespace FinancialGoalManager.Core.Repositories
         Task RemoveTransaction(Transaction transaction);
         Task<List<TransactionDto>> GetTransactionsAsync();
         Task<List<Transaction>> GetTransactionsDetailsAsync();
-        Task<Transaction> GetTransactionById(int Id);
+        Task<Transaction> GetTransactionByIdAsync(int Id);
     }
 }

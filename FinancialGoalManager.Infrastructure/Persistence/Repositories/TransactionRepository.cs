@@ -24,7 +24,7 @@ namespace FinancialGoalManager.Infrastructure.Persistence.Repositories
             return transactions;
         }
 
-        public async Task<Transaction> GetTransactionById(int id)
+        public async Task<Transaction> GetTransactionByIdAsync(int id)
             => await _context.Transactions.SingleOrDefaultAsync(i => i.Id == id);
 
         public async Task<List<Transaction>> GetTransactionsDetailsAsync()
