@@ -14,7 +14,7 @@ namespace FinancialGoalManager.Application.Commands.Transaction.RemoveTransactio
         public async Task<bool> Handle(RemoveTransactionCommand command, CancellationToken cancellationToken)
         {
             await _unitOfWork.BeginTransactionAsync();
-            var transaction = await _unitOfWork.TransactionRepository.GetTransactionById(command.Id);
+            var transaction = await _unitOfWork.TransactionRepository.GetTransactionByIdAsync(command.Id);
 
             if (transaction == null)
                 return false;

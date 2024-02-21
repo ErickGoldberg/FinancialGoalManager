@@ -11,6 +11,6 @@ namespace FinancialGoalManager.Application.Queries.Transaction.GetTransactionsDe
             => _transactionRepository = transactionRepository;
         
         public async Task<List<Core.Entities.Transaction>> Handle(GetTransactionsDetailsQuery request, CancellationToken cancellationToken)
-            => await _transactionRepository.GetTransactionsDetails();
+            => await _transactionRepository.GetTransactionsDetailsAsync();
     }
 }

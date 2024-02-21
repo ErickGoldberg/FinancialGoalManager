@@ -11,6 +11,6 @@ namespace FinancialGoalManager.Application.Queries.FinancialGoalQueries.GetGoals
             => _goalRepository = goalRepository;
         
         public async Task<List<FinancialGoal>> Handle(GetGoalsDetailsQuery request, CancellationToken cancellationToken)
-            => await _goalRepository.GetGoalsDetails();
+            => await _goalRepository.GetGoalsDetailsAsync();
     }
 }

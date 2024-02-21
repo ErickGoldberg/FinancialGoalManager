@@ -22,9 +22,11 @@ namespace FinancialGoalManager.API.Controllers
             return Created("Your transaction was made successfully!", true);
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> RemoveTransaction(RemoveTransactionCommand command)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> RemoveTransaction(int id)
         {
+            var command = new RemoveTransactionCommand(id);
+
             var result = await _mediator.Send(command);
 
             if (!result)

@@ -4,6 +4,8 @@ namespace FinancialGoalManager.Application.Commands.Transaction.RemoveTransactio
 {
     public class RemoveTransactionCommand : IRequest<bool>
     {
-        public int Id { get; set; }
+        public RemoveTransactionCommand(int id) => Id = id;
+
+        public int Id { get; private set; }
     }
 }

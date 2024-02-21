@@ -5,10 +5,10 @@ namespace FinancialGoalManager.Core.Repositories
 {
     public interface ITransactionRepository
     {
-        Task SendTransaction(Transaction transaction);
+        Task SendTransactionAsync(Transaction transaction);
         Task RemoveTransaction(Transaction transaction);
-        Task<List<TransactionDto>> GetTransactions();
-        Task<List<Transaction>> GetTransactionsDetails();
+        Task<List<TransactionDto>> GetTransactionsAsync();
+        Task<List<Transaction>> GetTransactionsDetailsAsync();
         Task<Transaction> GetTransactionById(int Id);
     }
 }

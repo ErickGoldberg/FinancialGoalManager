@@ -17,7 +17,7 @@ namespace FinancialGoalManager.Application.Commands.FinancialGoals.RegisterGoal
 
             await _unitOfWork.BeginTransactionAsync();
 
-            await _unitOfWork.FinancialGoalRepository.RegisterGoal(financialGoal);
+            await _unitOfWork.FinancialGoalRepository.RegisterGoalAsync(financialGoal);
             await _unitOfWork.CompleteAsync();
 
             await _unitOfWork.CommitAsync();

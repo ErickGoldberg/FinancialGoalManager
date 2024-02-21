@@ -36,9 +36,11 @@ namespace FinancialGoalManager.API.Controllers
             return NoContent();
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteGoal(DeleteGoalCommand command)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteGoal(int id)
         {
+            var command = new DeleteGoalCommand(id);
+
             var result = await _mediator.Send(command);
 
             if (!result)
