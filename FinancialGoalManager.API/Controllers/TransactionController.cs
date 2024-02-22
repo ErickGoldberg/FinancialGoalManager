@@ -4,6 +4,8 @@ using FinancialGoalManager.Application.Queries.Transaction.ListTransactions;
 using FinancialGoalManager.Application.Queries.Transaction.GetTransactionsDetails;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using FinancialGoalManager.Application.Abstractions;
+using FinancialGoalManager.Core.DTOs;
 
 namespace FinancialGoalManager.API.Controllers
 {
@@ -30,7 +32,7 @@ namespace FinancialGoalManager.API.Controllers
             var result = await _mediator.Send(command);
 
             if (!result)
-                BadRequest("An error has occured!");
+                return BadRequest(Result<RemoveTransactionCommand>.Failure());
 
             return NoContent();
         }
@@ -42,7 +44,7 @@ namespace FinancialGoalManager.API.Controllers
 
             var result = await _mediator.Send(query);
 
-            return Ok(result);
+            return Ok(Result<List<TransactionDto>>.Success(result));
         }
 
         [HttpGet]
@@ -53,7 +55,7 @@ namespace FinancialGoalManager.API.Controllers
 
             var result = await _mediator.Send(query);
 
-            return Ok(result);
+            return Ok(Result<List<Transaction>>.Success(result));
         }
     }
 }

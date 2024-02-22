@@ -1,6 +1,9 @@
-﻿using FinancialGoalManager.Application.Queries.Reports.GetReports;
+﻿using FinancialGoalManager.Application.Abstractions;
+using FinancialGoalManager.Application.Queries.Reports.GetReports;
+using FinancialGoalManager.Core.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace FinancialGoalManager.API.Controllers
 {
@@ -23,7 +26,7 @@ namespace FinancialGoalManager.API.Controllers
 
             var reports = await _mediator.Send(query);
 
-            return Ok(reports);
+            return Ok(Result<List<ReportsDto>>.Success(reports));
         }
     }
 }

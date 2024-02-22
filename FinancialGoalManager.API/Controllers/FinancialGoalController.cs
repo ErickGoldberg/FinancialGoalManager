@@ -1,10 +1,13 @@
-﻿using FinancialGoalManager.Application.Commands.FinancialGoals.DeleteGoal;
+﻿using FinancialGoalManager.Application.Abstractions;
+using FinancialGoalManager.Application.Commands.FinancialGoals.DeleteGoal;
 using FinancialGoalManager.Application.Commands.FinancialGoals.RegisterGoal;
 using FinancialGoalManager.Application.Commands.FinancialGoals.SimulateFinancialEvolution;
 using FinancialGoalManager.Application.Commands.FinancialGoals.UpdateGoal;
 using FinancialGoalManager.Application.Commands.FinancialGoals.UploadCover;
 using FinancialGoalManager.Application.Queries.FinancialGoalQueries.GetGoalsDetails;
 using FinancialGoalManager.Application.Queries.FinancialGoalQueries.ListGoals;
+using FinancialGoalManager.Core.DTOs;
+using FinancialGoalManager.Core.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,7 +34,7 @@ namespace FinancialGoalManager.API.Controllers
             var result = await _mediator.Send(command);
 
             if (!result)
-                BadRequest("An error has occured!");
+                return NotFound(Result<object>.Failure());
 
             return NoContent();
         }
@@ -44,7 +47,7 @@ namespace FinancialGoalManager.API.Controllers
             var result = await _mediator.Send(command);
 
             if (!result)
-                BadRequest("An error has occured!");
+                return NotFound(Result<object>.Failure());
 
             return NoContent();
         }
@@ -56,7 +59,7 @@ namespace FinancialGoalManager.API.Controllers
 
             var result = await _mediator.Send(query);
 
-            return Ok(result);
+            return Ok(Result<List<FinancialGoalDto>>.Success(result));
         }
 
         [HttpGet]
@@ -67,7 +70,7 @@ namespace FinancialGoalManager.API.Controllers
 
             var result = await _mediator.Send(query);
 
-            return Ok(result);
+            return Ok(Result<List<FinancialGoal>>.Success(result));
         }
 
         [HttpPost]
@@ -76,7 +79,7 @@ namespace FinancialGoalManager.API.Controllers
         {
             var result = await _mediator.Send(command);
 
-            return Ok(result);
+            return Ok(Result<string>.Success(result));
         }
 
         [HttpPost]
@@ -86,7 +89,7 @@ namespace FinancialGoalManager.API.Controllers
             var result = await _mediator.Send(command);
 
             if (!result)
-                BadRequest("An error has occured!");
+                return NotFound(Result<object>.Failure());
 
             return Created("The Cover was uploaded successfully!", true);
         }
