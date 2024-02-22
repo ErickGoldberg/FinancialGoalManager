@@ -1,4 +1,5 @@
 ﻿using FinancialGoalManager.API.Filters;
+using FinancialGoalManager.API.Jobs;
 using FinancialGoalManager.API.Middleware;
 using FinancialGoalManager.Application.Commands.FinancialGoals.RegisterGoal;
 using FinancialGoalManager.Application.Validators.FinancialGoal;
@@ -71,6 +72,9 @@ namespace FinancialGoalManager.API.Extensions
             // Connect Connection String
             builder.Services.AddDbContext<FinancialGoalManagerDbContext>(options
                 => options.UseSqlServer(builder.Configuration.GetConnectionString("FinancialGoalManagerDb")));
+
+            // Adding Hosted Service
+            builder.Services.AddHostedService<RememberDaysLeftJob>();
 
             return builder;
         }

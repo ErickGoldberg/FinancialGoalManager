@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using FinancialGoalManager.Application.Abstractions;
 using FinancialGoalManager.Core.DTOs;
+using FinancialGoalManager.Core.Entities;
 
 namespace FinancialGoalManager.API.Controllers
 {
