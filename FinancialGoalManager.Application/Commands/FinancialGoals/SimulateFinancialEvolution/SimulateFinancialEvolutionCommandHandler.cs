@@ -7,7 +7,7 @@ namespace FinancialGoalManager.Application.Commands.FinancialGoals.SimulateFinan
         public Task<string> Handle(SimulateFinancialEvolutionCommand request, CancellationToken cancellationToken)
         {
             var fee = 1 + (request.MonthlyIncome / 100);
-            var finalAmount = request.Amount * Math.Pow(fee, request.Months);
+            var finalAmount = request.Amount * Math.Pow(request.Months, fee);
 
             var result = $"The final amount is gonna be: {finalAmount}";
 

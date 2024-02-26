@@ -13,7 +13,7 @@ namespace FinancialGoalManager.Application.Commands.FinancialGoals.RegisterGoal
 
         public async Task Handle(RegisterGoalCommand request, CancellationToken cancellationToken)
         {
-            var financialGoal = new FinancialGoal(request.Title, request.GoalAmount, request.Status, request.Deadline);
+            var financialGoal = new FinancialGoal(request.Title, request.GoalAmount, request.Deadline);
 
             await _unitOfWork.BeginTransactionAsync();
 

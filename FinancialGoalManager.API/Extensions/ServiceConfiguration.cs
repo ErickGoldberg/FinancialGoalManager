@@ -4,6 +4,8 @@ using FinancialGoalManager.API.Middleware;
 using FinancialGoalManager.Application.Commands.FinancialGoals.RegisterGoal;
 using FinancialGoalManager.Application.Validators.FinancialGoal;
 using FinancialGoalManager.Core.Repositories;
+using FinancialGoalManager.Core.Services;
+using FinancialGoalManager.Infrastructure.MessageBus;
 using FinancialGoalManager.Infrastructure.Persistence;
 using FinancialGoalManager.Infrastructure.Persistence.Repositories;
 using FluentValidation.AspNetCore;
@@ -16,8 +18,8 @@ namespace FinancialGoalManager.API.Extensions
     {
         public static WebApplicationBuilder ConfigureServices(this WebApplicationBuilder builder)
         {
-            builder.ConfigureDependencyInjection()
-                   .ConfigureOthersServices();
+            builder.ConfigureDependencyInjection();
+            builder.ConfigureOthersServices();
 
             builder.Services.AddControllers();
 
@@ -41,42 +43,38 @@ namespace FinancialGoalManager.API.Extensions
             return builder;
         }
 
-        public static WebApplicationBuilder ConfigureDependencyInjection(this WebApplicationBuilder builder)
+        public static IServiceCollection ConfigureDependencyInjection(this WebApplicationBuilder builder)
         {
-            // Adding repositories
-            builder.Services.AddScoped<IFinancialGoalRepository, FinancialGoalRepository>();
-            builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
-            builder.Services.AddScoped<IReportsRepository, ReportsRepository>();
+            var services = builder.Services;
 
-            // Adding UnitOfWork
-            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IFinancialGoalRepository, FinancialGoalRepository>();
+            services.AddScoped<ITransactionRepository, TransactionRepository>();
+            services.AddScoped<IReportsRepository, ReportsRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IMessageBusService, MessageBusService>();
+            services.AddTransient<GlobalExceptionHandler>();
 
-            // Adding Middleware
-            builder.Services.AddTransient<GlobalExceptionHandler>();
-
-            return builder;
+            return services;
         }
 
-        public static WebApplicationBuilder ConfigureOthersServices(this WebApplicationBuilder builder)
+        public static IServiceCollection ConfigureOthersServices(this WebApplicationBuilder builder)
         {
-            // Add MediatR
-            builder.Services.AddMediatR(config =>
+            var services = builder.Services;
+
+            services.AddMediatR(config =>
             {
                 config.RegisterServicesFromAssembly(typeof(RegisterGoalCommand).Assembly);
             });
 
-            // Validations (Fluent Validators)
-            builder.Services.AddControllers(options => options.Filters.Add(typeof(ValidationFilter)))
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RegisterGoalValidator>());
+            services.AddControllers(options => options.Filters.Add(typeof(ValidationFilter)))
+                    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RegisterGoalValidator>());
 
-            // Connect Connection String
             builder.Services.AddDbContext<FinancialGoalManagerDbContext>(options
                 => options.UseSqlServer(builder.Configuration.GetConnectionString("FinancialGoalManagerDb")));
 
-            // Adding Hosted Service
-            builder.Services.AddHostedService<RememberDaysLeftJob>();
+            services.AddHostedService<RememberDaysLeftJob>();
 
-            return builder;
+            return services;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace FinancialGoalManager.Core.Entities
         private Transaction() { }
         public Transaction(decimal amount, TransactionTypeEnum transactionType, DateTime transactionDate)
         {
-            Amount = amount;
+            Amount = Math.Round(amount, 2);
             TransactionType = transactionType;
             TransactionDate = transactionDate;
 
@@ -16,7 +16,6 @@ namespace FinancialGoalManager.Core.Entities
             IsDeleted = false;
         }
 
-        [DisplayFormat(DataFormatString = "{0:0.00}")]
         public decimal Amount { get; private set; }
         public TransactionTypeEnum TransactionType { get; private set; }
         public DateTime CreatedAt { get; private set; }

@@ -18,7 +18,7 @@ namespace FinancialGoalManager.API.Jobs
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _timer = new Timer(NotificateTransactionDaysLeft, null, 0, 10000);
+            _timer = new Timer(NotificateTransactionDaysLeft, null, 0, 86400000);
             return Task.CompletedTask;
         }
 
@@ -38,7 +38,7 @@ namespace FinancialGoalManager.API.Jobs
                     .ToList();
 
                  var result = goalsWithCloseDeadline.Any()
-                    ? $"These are the goal(s) that will expire in less than 15 days! - {goalsWithCloseDeadline.ToString()}"
+                    ? $"These are the goal(s) that will expire in less than 15 days! - {goalsWithCloseDeadline}"
                     : "There are no goals set to be completed within the next 15 days!";
 
                 Console.WriteLine(result);

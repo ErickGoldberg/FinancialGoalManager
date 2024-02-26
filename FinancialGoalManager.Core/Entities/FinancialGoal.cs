@@ -1,18 +1,21 @@
 ﻿using FinancialGoalManager.Core.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace FinancialGoalManager.Core.Entities
 {
     public class FinancialGoal : BaseEntity
     {
         private FinancialGoal() { }
-        public FinancialGoal(string title, decimal goalAmount, FinancialGoalStatusEnum status, DateTime? deadline)
+        public FinancialGoal(string title, decimal goalAmount, DateTime? deadline)
         {
-            Title = title;  
+            Title = title;
             GoalAmount = goalAmount;
-            Status = status;
-            Deadline = deadline;
 
-            CreatedAt = DateTime.UtcNow;
+            if (deadline != null)
+                Deadline = deadline.Value.Date;
+
+            Status = FinancialGoalStatusEnum.InProgress;
+            CreatedAt = DateTime.UtcNow.Date;
             IsDeleted = false;
 
             if (Deadline != null)
@@ -20,18 +23,19 @@ namespace FinancialGoalManager.Core.Entities
                 var timeLeft = deadline - CreatedAt;
                 var days = timeLeft.Value.Days;
 
-                IdealMonthlySaving = (GoalAmount / days) * 30;
+                var idealMonthlySaving = (GoalAmount / days) * 30;
+                IdealMonthlySaving = Math.Round(idealMonthlySaving, 2);
             }
         }
 
         public string Title { get; set; }
         public decimal GoalAmount { get; private set; }
         public DateTime? Deadline { get; set; }
-        public decimal? IdealMonthlySaving { get; set; }
         public FinancialGoalStatusEnum Status { get; set; }
         public List<Transaction> Transactions { get; set; }
         public byte[]? Cover { get; set; }
         public DateTime CreatedAt { get; private set; }
         public bool IsDeleted { get; set; }
+        public decimal? IdealMonthlySaving { get; set; }
     }
 }

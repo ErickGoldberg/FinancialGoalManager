@@ -27,12 +27,6 @@ namespace FinancialGoalManager.Application.Validators.FinancialGoal
                 .GreaterThanOrEqualTo(DateTime.Now.AddMonths(2))
                 .LessThanOrEqualTo(DateTime.Now.AddYears(5))
                 .WithMessage("The deadline must have at least 2 months and the maximum date 5 years!");
-
-            RuleFor(i => i.Status)
-                .NotNull()
-                .NotEmpty()
-                .IsInEnum()
-                .WithMessage("Be sure that you have passed a valid enum!");
         }
     }
 }
