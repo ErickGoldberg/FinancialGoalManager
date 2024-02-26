@@ -1,6 +1,7 @@
 ﻿using FinancialGoalManager.Core.Entities;
 using FinancialGoalManager.Core.Enums;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace FinancialGoalManager.Application.Commands.FinancialGoals.UpdateGoal
 {
@@ -10,6 +11,6 @@ namespace FinancialGoalManager.Application.Commands.FinancialGoals.UpdateGoal
         public decimal? GoalAmount { get; set; }
         public DateTime? Deadline { get; set; }
         public FinancialGoalStatusEnum? Status { get; set; }
-        public byte[]? Cover { get; set; }
+        public IFormFile? Cover { get; set; }
     }
 }

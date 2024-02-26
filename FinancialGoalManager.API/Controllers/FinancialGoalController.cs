@@ -25,7 +25,7 @@ namespace FinancialGoalManager.API.Controllers
         {
             await _mediator.Send(command);
 
-            return Created("Your Goal was registered successfully!", true);
+            return Created("Your Goal was registered successfully!", command);
         }
 
         [HttpPut]
@@ -84,14 +84,14 @@ namespace FinancialGoalManager.API.Controllers
 
         [HttpPost]
         [Route("UploadCover")]
-        public async Task<IActionResult> UploadCover(UploadCoverCommand command)
+        public async Task<IActionResult> UploadCover([FromForm] UploadCoverCommand command)
         {
             var result = await _mediator.Send(command);
 
             if (!result)
                 return NotFound(Result<object>.Failure());
 
-            return Created("The Cover was uploaded successfully!", true);
+            return Created("The Cover was uploaded successfully!", command.Cover.FileName);
         }
     }
 }

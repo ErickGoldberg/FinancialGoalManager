@@ -32,8 +32,16 @@ namespace FinancialGoalManager.Application.Commands.FinancialGoals.UpdateGoal
             if (request.Status != null)
                 financialGoal.Status = (Core.Enums.FinancialGoalStatusEnum)request.Status;
 
-            if (request.Cover != null)
-                financialGoal.Cover = request.Cover;
+            if (request.Cover != null) 
+            {
+                using (var stream = new MemoryStream())
+                {
+                    await request.Cover.CopyToAsync(stream);
+                    var file = stream.ToArray();
+
+                    financialGoal.Cover = file;
+                }
+            }
 
             await _unitOfWork.FinancialGoalRepository.UpdateGoal(financialGoal);
             await _unitOfWork.CompleteAsync();
