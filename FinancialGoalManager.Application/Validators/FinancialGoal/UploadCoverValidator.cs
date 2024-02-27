@@ -18,7 +18,7 @@ namespace FinancialGoalManager.Application.Validators.FinancialGoal
                 .NotEmpty()
                 .WithMessage("Cover is mandatory!")
                 .Must(BeAValidFile)
-                .WithMessage("Invalid file format or file is too large."); 
+                .WithMessage("Invalid file format or file is too large.");
         }
 
         private bool BeAValidFile(IFormFile file)

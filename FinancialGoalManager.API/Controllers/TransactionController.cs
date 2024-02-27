@@ -20,9 +20,12 @@ namespace FinancialGoalManager.API.Controllers
         [HttpPost]
         public async Task<IActionResult> SendTransaction(SendTransactionCommand command)
         {
-            await _mediator.Send(command);
+            var isSuccess = await _mediator.Send(command);
 
-            return Created("Your transaction was made successfully!", true);
+            if(!isSuccess)
+                return NotFound(Result<SendTransactionCommand>.NotFound());
+
+            return Created(string.Empty, "Your transaction was made successfully!");
         }
 
         [HttpDelete("{id}")]

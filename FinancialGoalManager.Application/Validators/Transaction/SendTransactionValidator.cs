@@ -7,6 +7,11 @@ namespace FinancialGoalManager.Application.Validators.Transaction
     {
         public SendTransactionValidator() 
         {
+            RuleFor(i => i.IdFinancialGoal)
+                .NotNull()
+                .NotEmpty()
+                .WithMessage("Id cannnot be null/empty!");
+
             RuleFor(i => i.Amount)
                 .NotNull()
                 .NotEmpty()
