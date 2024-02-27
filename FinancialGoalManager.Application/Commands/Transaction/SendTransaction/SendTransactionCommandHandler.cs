@@ -20,8 +20,7 @@ namespace FinancialGoalManager.Application.Commands.Transaction.SendTransaction
             var transaction = new Core.Entities.Transaction(command.Amount,
                                               command.TransactionType,
                                               command.TransactionDate,
-                                              command.IdFinancialGoal,
-                                              financialGoal);
+                                              command.IdFinancialGoal);
 
             await _unitOfWork.BeginTransactionAsync();
             await _unitOfWork.TransactionRepository.SendTransactionAsync(transaction);

@@ -37,8 +37,8 @@ namespace FinancialGoalManager.API.Jobs
                     .Select(i => i.Title)
                     .ToList();
 
-                 var result = goalsWithCloseDeadline.Any()
-                    ? $"These are the goal(s) that will expire in less than 15 days! - {goalsWithCloseDeadline}"
+                var result = goalsWithCloseDeadline.Any()
+                    ? $"These are the goal(s) that will expire in less than 15 days! Titles: {string.Join(", ", goalsWithCloseDeadline)}"
                     : "There are no goals set to be completed within the next 15 days!";
 
                 Console.WriteLine(result);

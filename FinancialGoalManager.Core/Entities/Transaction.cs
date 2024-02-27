@@ -7,13 +7,12 @@ namespace FinancialGoalManager.Core.Entities
     {
         private Transaction() { }
         public Transaction(decimal amount, TransactionTypeEnum transactionType,
-            DateTime transactionDate, int idFinancialGoal, FinancialGoal financialGoal)
+            DateTime transactionDate, int idFinancialGoal)
         {
             Amount = Math.Round(amount, 2);
             TransactionType = transactionType;
             TransactionDate = transactionDate;
             IdFinancialGoal = idFinancialGoal;
-            FinancialGoal = financialGoal;
 
             CreatedAt = DateTime.UtcNow;
             IsDeleted = false;
