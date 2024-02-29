@@ -19,16 +19,20 @@ namespace FinancialGoalManager.Application.Commands.FinancialGoals.UploadCover
             if (goal == null)
                 return false;
 
+            byte[] file;
+
             using (var stream = new MemoryStream())
             {
                 await request.Cover.CopyToAsync(stream);
-                var file = stream.ToArray();
+                file = stream.ToArray();
 
                 goal.Cover = file;
             }
 
             await _unitOfWork.FinancialGoalRepository.UpdateGoal(goal);
             await _unitOfWork.CompleteAsync();
+
+            // send to S3
 
             await _unitOfWork.CommitAsync();
 

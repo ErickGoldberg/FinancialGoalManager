@@ -32,8 +32,20 @@ namespace FinancialGoalManager.Infrastructure.Persistence.Repositories
 
         public async Task RemoveTransaction(Transaction transaction)
             => _context.Transactions.Remove(transaction);
-        
-        public async Task SendTransactionAsync(Transaction transaction)
-            => await _context.Transactions.AddAsync(transaction);
+
+        public async Task SendTransactionAsync(Transaction transaction, FinancialGoal financialGoal)
+        {
+            if (financialGoal != null)
+            {
+                transaction.FinancialGoal = financialGoal;
+
+                financialGoal.Transactions = financialGoal.Transactions ?? new List<Transaction>();
+                financialGoal.Transactions.Add(transaction);
+
+                _context.Update(financialGoal);
+            }
+
+            await _context.Transactions.AddAsync(transaction);
+        }
     }
 }

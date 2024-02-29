@@ -17,13 +17,16 @@ namespace FinancialGoalManager.Application.Commands.Transaction.SendTransaction
             if (financialGoal == null)
                 return false;
 
+            if (command.TransactionType == Core.Enums.TransactionTypeEnum.WithDraw)
+                command.Amount *= -1;
+
             var transaction = new Core.Entities.Transaction(command.Amount,
                                               command.TransactionType,
                                               command.TransactionDate,
                                               command.IdFinancialGoal);
 
             await _unitOfWork.BeginTransactionAsync();
-            await _unitOfWork.TransactionRepository.SendTransactionAsync(transaction);
+            await _unitOfWork.TransactionRepository.SendTransactionAsync(transaction, financialGoal);
             await _unitOfWork.CompleteAsync();
             await _unitOfWork.CommitAsync();
 
